@@ -1,0 +1,45 @@
+/* Buttons */
+.btn {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  transition: all 0.3s ease;
+}
+
+/* Primary button */
+.btn-primary {
+  background: #5d4037; /* deep brown */
+  border: none;
+  color: #fdf6e3; /* cream text */
+}
+
+.btn-primary:hover {
+  background: #3e2723; /* darker espresso brown */
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(62, 44, 35, 0.25);
+}
+
+/* Secondary button */
+.btn-secondary {
+  background: #d7ccc8; /* light taupe/beige */
+  border: none;
+  color: #3e2c23; /* dark brown text */
+}
+
+.btn-secondary:hover {
+  background: #bcaaa4; /* slightly darker beige */
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(62, 44, 35, 0.2);
+}
+
+/* Outline button */
+.btn-outline-light {
+  color: #fdf6e3;
+  border: 2px solid #fdf6e3;
+}
+
+.btn-outline-light:hover {
+  background: #fdf6e3;
+  color: #3e2c23;
+  transform: translateY(-2px) scale(1.03);
+}

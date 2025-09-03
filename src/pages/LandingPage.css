@@ -1,0 +1,75 @@
+.landing-page {
+  min-height: 100vh;
+  background: linear-gradient(rgba(45, 29, 23, 0.85), rgba(45, 29, 23, 0.85)),
+              url('../assets/bus-hero1.png') no-repeat center center;
+  background-size: cover;
+  color: #fdf6e3; /* light cream text */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.landing-page h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  animation: slideInDown 1s ease-out;
+  color: #fdf6e3; /* heading in cream */
+}
+
+.landing-page p {
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 2s ease-in-out;
+  color: #eaddcf; /* softer beige for paragraph */
+}
+
+.landing-page .btn {
+  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+  background: #6d4c41; /* dark coffee brown */
+  border: none;
+  color: #fdf6e3; /* cream text */
+  font-weight: 600;
+  border-radius: 12px; /* slightly rounded rectangle for modern look */
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.landing-page .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  background: #4e342e; /* deeper espresso brown */
+  color: #fff3e0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.landing-hero {
+  min-height: 80vh;
+  padding: 4rem 2rem;
+  background: rgba(45, 29, 23, 0.85); /* consistent dark brown overlay */
+}

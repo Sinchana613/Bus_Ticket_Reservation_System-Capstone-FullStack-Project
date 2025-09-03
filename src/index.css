@@ -1,0 +1,55 @@
+body { 
+  background:#f5f0eb; /* soft beige instead of bluish */
+}
+
+.navbar-brand { 
+  font-weight:700; 
+  color: #5d4037; /* deep brown for brand */
+}
+
+.card { 
+  border-radius:10px; 
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(93, 64, 55, 0.1);
+}
+
+/* Seat grid */
+.seat-grid { 
+  display:grid; 
+  grid-template-columns: repeat(4, 48px); 
+  gap:10px; 
+}
+
+/* Default seat */
+.seat { 
+  width:48px; 
+  height:48px; 
+  border-radius:6px; 
+  border:1px solid #a1887f; /* light brown border */
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  cursor:pointer; 
+  background:#fff8f0; /* warm cream */
+  color:#5d4037; /* dark brown text */
+  transition: all 0.3s ease;
+}
+
+.seat:hover {
+  background:#d7ccc8; /* taupe hover */
+  border-color:#6d4c41;
+}
+
+/* Selected seat */
+.seat.selected { 
+  background:#6d4c41; /* medium brown */
+  color:#fdf6e3;       /* cream text */
+  border-color:#6d4c41;
+}
+
+/* Booked seat */
+.seat.booked { 
+  background:#d7ccc8;  /* muted beige */
+  color:#8d6e63;       /* soft brown text */
+  cursor:not-allowed;
+}

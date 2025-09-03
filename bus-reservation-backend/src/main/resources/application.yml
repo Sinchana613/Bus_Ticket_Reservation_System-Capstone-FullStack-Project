@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/busdb?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    password: sinch613
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+app:
+  jwt:
+    secret: verySecretKeyChangeThis1234567890
+    expiryMinutes: 240
+
+logging:
+  level:
+    org.springframework: INFO
+
+
+  mail:
+    host: smtp.sendgrid.net
+    port: 587
+    username: apikey            # ✅ always use "apikey" (literal word)
+    password: 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  # ✅ your real SendGrid API key
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

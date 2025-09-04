@@ -1,1 +1,105 @@
 
+-- Database: bus_ticket_reservation
+
+CREATE DATABASE IF NOT EXISTS bus_ticket_reservation;
+USE bus_ticket_reservation;
+
+-- Users Table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(15) UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN', 'CUSTOMER') DEFAULT 'CUSTOMER',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Buses Table
+CREATE TABLE buses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    bus_number VARCHAR(50) UNIQUE NOT NULL,
+    bus_type ENUM('AC', 'NON-AC', 'SLEEPER') NOT NULL,
+    total_seats INT NOT NULL,
+    operator_name VARCHAR(100) NOT NULL
+);
+
+-- Routes Table
+CREATE TABLE routes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    source VARCHAR(100) NOT NULL,
+    destination VARCHAR(100) NOT NULL,
+    distance_km DECIMAL(6,2),
+    duration_minutes INT
+);
+
+-- Trips Table
+CREATE TABLE trips (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    bus_id INT NOT NULL,
+    route_id INT NOT NULL,
+    departure_time DATETIME NOT NULL,
+    arrival_time DATETIME NOT NULL,
+    fare DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (bus_id) REFERENCES buses(id) ON DELETE CASCADE,
+    FOREIGN KEY (route_id) REFERENCES routes(id) ON DELETE CASCADE
+);
+
+-- Seats Table
+CREATE TABLE seats (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    trip_id INT NOT NULL,
+    seat_number VARCHAR(10) NOT NULL,
+    seat_type ENUM('WINDOW', 'AISLE', 'MIDDLE') DEFAULT 'AISLE',
+    is_booked BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
+    UNIQUE (trip_id, seat_number)
+);
+
+-- Bookings Table
+CREATE TABLE bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    trip_id INT NOT NULL,
+    booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status ENUM('HELD', 'CONFIRMED', 'CANCELLED') DEFAULT 'HELD',
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
+);
+
+-- Booking Seats Table
+CREATE TABLE booking_seats (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT NOT NULL,
+    seat_id INT NOT NULL,
+    FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE,
+    FOREIGN KEY (seat_id) REFERENCES seats(id) ON DELETE CASCADE,
+    UNIQUE (booking_id, seat_id)
+);
+
+-- Payments Table
+CREATE TABLE payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT NOT NULL,
+    user_id INT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    status ENUM('PENDING', 'SUCCESS', 'FAILED', 'REFUNDED') DEFAULT 'PENDING',
+    gateway_ref VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Notifications Table
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    booking_id INT,
+    message TEXT,
+    type ENUM('EMAIL', 'SMS') NOT NULL,
+    status ENUM('SENT', 'FAILED') DEFAULT 'SENT',
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE
+);
